@@ -24,6 +24,7 @@ javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/AST/*.java 
 (cd java/Lexer && java -cp ../../class/ JLex.Main Yylex)    # Generate Lexer files
 
 
+
 javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Parser/*.java      # Compile Parser
 javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Lexer/Yylex.java      # Compile Yylex
 javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Main.java      # Compile Main
