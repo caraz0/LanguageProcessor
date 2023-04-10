@@ -15,14 +15,13 @@ set -e      # Stop script on error
 # Compile Java classes in order
 javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/JLex/*.java      # Compile JLex
 javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Errors/*.java      # Compile Errors
-#javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Compiler/*.java      # Compile Compiler
-javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/AST/*.java && javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/AST/**/*.java      # Compile AST
+javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Compiler/*.java      # Compile Compiler
+javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/AST/*.java      # Compile AST
 
 
-(cd java/Parser && java  -jar ../../class/java-cup-11b.jar minimal.cup)        # Generate Parser files
+(cd java/Parser && java  -jar ../../class/java-cup-11b.jar parser)        # Generate Parser files
 
 (cd java/Lexer && java -cp ../../class/ JLex.Main Yylex)    # Generate Lexer files
-
 
 
 javac -nowarn -cp class/java-cup-11b-runtime.jar:class -d class java/Parser/*.java      # Compile Parser

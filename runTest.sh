@@ -1,6 +1,6 @@
 set -e        # Stop on error
 
-for file in ejemplos/**/*.prog
+for file in ejemplos/**/*.prg
 do
    tput reset
    echo "Testing ->>> $file"
