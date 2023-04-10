@@ -1,0 +1,92 @@
+package Lexer;
+
+import Errors.LexerException;
+import Parser.sym;
+import Compiler.*;
+%%
+%{
+private java_cup.runtime.Symbol tok(int k, Object value, String valuestr) {
+  //System.out.println("Token: " + valuestr);
+  return new java_cup.runtime.Symbol(k, yyline, 0, value); 
+}
+%}
+
+%public
+%cup
+%line
+%yylexthrow{
+LexerException
+%yylexthrow} 
+%eofval{
+{return tok(sym.EOF, null,"EOF"); }
+%eofval}
+
+letra= [a-zA-Z]
+whiteSpace = [ \t\r\n\f] 
+Digito = [0|1|2|3|4|5|6|7|8|9]
+
+%%
+
+PF2023    {return tok(sym.PROG, null, "PROG"); }
+if        {return tok(sym.IF, null, "IF"); }
+then      {return tok(sym.THEN, null, "THEN"); }
+else      {return tok(sym.ELSE, null, "ELSE"); }
+end       {return tok(sym.END, null, "END"); }
+while     {return tok(sym.WHILE, null, "WHILE"); }
+plot      {return tok(sym.PLOT, null, "PLOT"); }
+do        {return tok(sym.DO, null, "DO"); }
+not       {return tok(sym.NOT, null, "NOT"); }
+and       {return tok(sym.AND, null, "AND"); }
+or        {return tok(sym.OR, null, "OR"); }
+size      {return tok(sym.SIZE, null, "SIZE"); }
+Int2Real  {return tok(sym.INT2REAL, null, "INT2REAL"); }
+Real2Int  {return tok(sym.REAL2INT, null, "REAL2INT"); }
+vars      {return tok(sym.VARS, null, "VARS");}
+seno      {return tok(sym.SENO, null, "SENO");}
+coseno    {return tok(sym.COSENO, null, "COSENO");}
+exp       {return tok(sym.EXPONENCIAL, null, "EXPONENCIAL");}
+
+int       {return tok(sym.TIPO, Type.INT, "TIPO"); }
+bool      {return tok(sym.TIPO, Type.BOOL, "TIPO"); }
+real      {return tok(sym.TIPO, Type.REAL, "TIPO"); }
+
+";"       {return tok(sym.PC, null, "PC"); }
+":="      {return tok(sym.ASOP, null, "ASOP"); }
+"<"       {return tok(sym.MENORQUE, null, "MENORQUE"); }
+">"       {return tok(sym.MAYORQUE, null, "MAYORQUE"); }
+"+"       {return tok(sym.MAS, null, "MAS"); }
+"/"       {return tok(sym.DIV, null, "DIV"); }
+"*"       {return tok(sym.POR, null, "POR"); }
+"("       {return tok(sym.PAREN, null, "PAREN"); }
+")"       {return tok(sym.TESIS, null, "TESIS"); }
+"="       {return tok(sym.IGUALQUE, null, "IGUALQUE"); }
+","       {return tok(sym.COMA, null, "COMA"); }
+"-"       {return tok(sym.MENOS, null, "MENOS"); }
+
+true      {return tok(sym.CLOG, new Boolean(true), "TRUE"); }
+false     {return tok(sym.CLOG, new Boolean(false), "FALSE"); }
+
+white   {return tok(sym.COLOR, 3, "COLOR"); }
+grey    {return tok(sym.COLOR, 4, "COLOR"); }
+black   {return tok(sym.COLOR, 5, "COLOR"); }
+red     {return tok(sym.COLOR, 6, "COLOR"); }
+green   {return tok(sym.COLOR, 7, "COLOR"); }
+blue    {return tok(sym.COLOR, 8, "COLOR"); }
+yellow  {return tok(sym.COLOR, 9, "COLOR"); }
+orange  {return tok(sym.COLOR, 10, "COLOR"); }
+
+[0-9]+      {return tok(sym.CENT, new Integer(yytext()), "CENT"); }
+
+[0-9]*"."[0-9]+                              {return tok(sym.CREAL, new Double(yytext()), "CREAL"); }
+[0-9]+"."[0-9]*                              {return tok(sym.CREAL, new Double(yytext()), "CREAL"); }
+[0-9]*"."[0-9]+([e|E]["+""-"]?[0-9]+)   {return tok(sym.CREAL, new Double(yytext()), "CREAL"); }
+[0-9]+"."[0-9]*([e|E]["+""-"]?[0-9]+)   {return tok(sym.CREAL, new Double(yytext()), "CREAL"); }
+[0-9]+([e|E]["+""-"]?[0-9]+)?            {return tok(sym.CREAL, new Double(yytext()), "CREAL"); }
+pi      {return tok(sym.PI, Type.REAL, "PI"); }
+
+{letra}({letra}|[0-9])*       {return tok(sym.IDENT, yytext(), "IDENT"); }
+
+{whiteSpace}  { }
+
+(" "|\n|\t|\r)+	{ }
+.		{throw new LexerException("Illegal character in line " + yyline);}
