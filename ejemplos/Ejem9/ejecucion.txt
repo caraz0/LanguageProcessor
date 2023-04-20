@@ -1,0 +1,5 @@
+[luis@armonica Ejem9]$ java Main Mixto.prg Mixto
+Codigo generado en fichero Mixto.java
+[luis@armonica Ejem9]$ javac *.java 
+[luis@armonica Ejem9]$ java Mixto prueba.bmp
+

@@ -1,0 +1,6 @@
+[luis@armonica Ejem12]$ java Main Exponencial.prg E
+Codigo generado en fichero E.java
+[luis@armonica Ejem12]$ javac *.java
+[luis@armonica Ejem12]$ java E 600 3 Exponencial1.bmp
+[luis@armonica Ejem12]$ java E 900 1 Exponencial2.bmp
+[luis@armonica Ejem12]$ java E 900 7 Exponencial3.bmp 

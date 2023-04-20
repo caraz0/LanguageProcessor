@@ -1,0 +1,6 @@
+[luis@armonica Ejem6]$ java Main Circulo.prg Circulo
+Codigo generado en fichero Circulo.java
+[luis@armonica Ejem6]$ javac *.java 
+[luis@armonica Ejem6]$ java Circulo prueba.bmp
+
+
